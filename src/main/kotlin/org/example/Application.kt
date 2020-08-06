@@ -59,15 +59,13 @@ class Application {
         return { (0..10).random() }
     }
 
-    // Injecting a service into a function and using JSON for input and output.
+    // Injecting a service.
     @Bean
-    fun uppercaseJson(
+    fun uppercase(
         uppercaseService: UppercaseService
-    ): (UpperCaseInput) -> UppercaseOutput {
+    ): (String) -> String {
         return { input ->
-            UppercaseOutput(
-                value = uppercaseService.uppercase(input.value)
-            )
+            uppercaseService.uppercase(input)
         }
     }
 
@@ -77,5 +75,15 @@ class Application {
         @Value("\${some.important.variable}") veryImportant: String
     ): () -> String {
         return { veryImportant }
+    }
+
+    // Serializing and de-serializing JSON.
+    @Bean
+    fun uppercaseJson(): (UpperCaseInput) -> UppercaseOutput {
+        return { input ->
+            UppercaseOutput(
+                value = input.value.toUpperCase()
+            )
+        }
     }
 }
