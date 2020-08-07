@@ -1,5 +1,7 @@
 package org.example
 
+import org.example.model.UpperCaseInput
+import org.example.model.UppercaseOutput
 import org.example.service.UppercaseService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
@@ -16,50 +18,40 @@ class Application {
         }
     }
 
-    // TODO: Move these?
-
     /**
-     * We have three types of function:
-     * - Supplier<Output> :: Produces some output.
-     * - Function<Input, Output> :: Takes some input and produces some output.
-     * - Consumer<Input> :: Takes and process some input.
+     * Simple function with primitive input and output.
      *
-     * These kotlin type definitions will map to these three types:
-     * - Supplier :: () -> Int
-     * - Function :: (String) -> String
-     * - Consumer :: (String) -> Unit
-     *
-     * On running the spring application, each of these function types will be deployed to a web server with a path
-     * matching the function name.
+     * @return The given String after it is lower cased.
      */
-
-    data class UpperCaseInput(
-        val value: String
-    )
-
-    data class UppercaseOutput(
-        val value: String
-    )
-
-    // Simple function with primitive input and output.
     @Bean
     fun lowercase(): (String) -> String {
         return { it.toLowerCase() }
     }
 
-    // Simple Consumer with primitive input.
+    /**
+     * Simple Consumer with primitive input and no output.
+     */
     @Bean
     fun print(): (String) -> Unit {
         return { println(it)}
     }
 
-    // Simple Supplier with primitive output.
+    /**
+     * Simple Supplier with primitive output and no input.
+     *
+     * @return A random Integer between 0 and 10.
+     */
     @Bean
     fun random(): () -> Int {
         return { (0..10).random() }
     }
 
-    // Injecting a service.
+    /**
+     * Function demonstrating the injection of a service containing it's functionality.
+     *
+     * @param uppercaseService Service containing the functionality this lambda invokes.
+     * @return The given string upper cased.
+     */
     @Bean
     fun uppercase(
         uppercaseService: UppercaseService
@@ -69,7 +61,12 @@ class Application {
         }
     }
 
-    // Injecting properties.
+    /**
+     * Function demonstrating a property being injected in.
+     *
+     * @param veryImportant The injected property
+     * @return The property.
+     */
     @Bean
     fun getVariable(
         @Value("\${some.important.variable}") veryImportant: String
@@ -77,7 +74,11 @@ class Application {
         return { veryImportant }
     }
 
-    // Serializing and de-serializing JSON.
+    /**
+     * Function demonstrating serializing and de-serializing JSON.
+     *
+     * @return An instance of  [UppercaseOutput] containing the value in [UpperCaseInput.value] uppercased.
+     */
     @Bean
     fun uppercaseJson(): (UpperCaseInput) -> UppercaseOutput {
         return { input ->
