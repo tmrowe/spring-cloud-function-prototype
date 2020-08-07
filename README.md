@@ -21,14 +21,14 @@ web server for local development and isolated testing.
 You can now run the API by running the main class under `org.example.Application`.
 
 You can then call each of the functions with an HTTP Client (such as Curl or Postman). The endpoints will all be hosted
-on `http://localhost:8080/` with the path being the functions name. I.e:
+on `http://localhost:9101/` with the path being the functions name. I.e:
 ```
-POST http://localhost:8080/uppercase
-POST http://localhost:8080/uppercaseJson
-POST http://localhost:8080/lowercase
-POST http://localhost:8080/print
-GET http://localhost:8080/random
-GET http://localhost:8080/getVariable
+POST http://localhost:9101/uppercase
+POST http://localhost:9101/uppercaseJson
+POST http://localhost:9101/lowercase
+POST http://localhost:9101/print
+GET http://localhost:9101/random
+GET http://localhost:9101/getVariable
 ```
 
 ### AWS Deployment
