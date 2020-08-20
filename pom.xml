@@ -31,18 +31,6 @@
 
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-function-dependencies</artifactId>
-                <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
 
         <!-- Spring -->
@@ -50,13 +38,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-function-kotlin</artifactId>
-<!--            <version>${spring.version}</version>-->
+            <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-function-context</artifactId>
-        </dependency>
+        <!-- Local Deployment -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -65,12 +50,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Deployment -->
+        <!-- AWS Deployment -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-function-adapter-aws</artifactId>
-<!--            <version>${spring.version}</version>-->
+            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
