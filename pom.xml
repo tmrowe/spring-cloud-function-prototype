@@ -13,21 +13,22 @@
     <properties>
 
         <!-- Build Configuration -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <main.class>org.example.Application</main.class>
         <kotlin.version>1.4.0</kotlin.version>
-        <kotlin.code.style>official</kotlin.code.style>
+        <main.class>org.example.Application</main.class>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- External Dependency Version -->
         <spring.version>3.0.9.RELEASE</spring.version>
-        <spring-boot-wrapper.version>1.0.25.RELEASE</spring-boot-wrapper.version>
         <jackson.version>2.10.3</jackson.version>
-        <junit.version>4.12</junit.version>
+
+        <aws-lambda-java-events.version>2.0.2</aws-lambda-java-events.version>
+        <aws-lambda-java-core.version>1.1.0</aws-lambda-java-core.version>
 
         <!-- Plugin Versions -->
         <maven-assembly-plugin.version>2.4.1</maven-assembly-plugin.version>
+        <spring-boot-maven-plugin.version>2.3.2.RELEASE</spring-boot-maven-plugin.version>
 
     </properties>
 
@@ -63,13 +64,13 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-events</artifactId>
-            <version>2.0.2</version>
+            <version>${aws-lambda-java-events.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-core</artifactId>
-            <version>1.1.0</version>
+            <version>${aws-lambda-java-core.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -87,22 +88,6 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
-        </dependency>
-
-        <!-- Testing -->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test-junit</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -180,7 +165,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.3.2.RELEASE</version>
+                <version>${spring-boot-maven-plugin.version}</version>
 
                 <configuration>
                     <classifier>web</classifier>
@@ -205,7 +190,7 @@
                     <dependency>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
-                        <version>2.3.2.RELEASE</version>
+                        <version>${spring-boot-maven-plugin.version}</version>
                     </dependency>
                 </dependencies>
 
@@ -261,148 +246,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
-
-
-
-
-
-
-
-
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <version>2.3.2.RELEASE</version>-->
-
-<!--                <configuration>-->
-<!--                    <classifier>boot</classifier>-->
-<!--                    <mainClass>${main.class}</mainClass>-->
-<!--                </configuration>-->
-
-<!--&lt;!&ndash;                <dependencies>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <groupId>org.springframework.boot.experimental</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <artifactId>spring-boot-thin-layout</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <version>1.0.25.RELEASE</version>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </dependency>&ndash;&gt;-->
-<!--&lt;!&ndash;                </dependencies>&ndash;&gt;-->
-
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>default-layout</id>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>zip-layout</id>-->
-<!--                        <goals>-->
-<!--                            <goal>repackage</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <layout>ZIP</layout>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-
-
-
-
-
-
-
-
-
-
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-deploy-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <skip>true</skip>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
-
-
-
-
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-shade-plugin</artifactId>-->
-<!--                <version>3.2.4</version>-->
-<!--                <configuration>-->
-<!--                    <createDependencyReducedPom>false</createDependencyReducedPom>-->
-<!--                    <shadedArtifactAttached>true</shadedArtifactAttached>-->
-<!--                    <shadedClassifierName>aws</shadedClassifierName>-->
-
-<!--                    <transformers>-->
-<!--                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-<!--                            <mainClass>${main.class}</mainClass>-->
-<!--                        </transformer>-->
-<!--                    </transformers>-->
-<!--                </configuration>-->
-
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>shade</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- Exception Class not found: org.springframework.cloud.function.adapter.aws.FunctionInvoker -->
-
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-shade-plugin</artifactId>-->
-<!--                <version>3.2.4</version>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.springframework.boot</groupId>-->
-<!--                        <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                        <version>2.3.1.RELEASE</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--                <configuration>-->
-<!--                    <createDependencyReducedPom>false</createDependencyReducedPom>-->
-<!--                    <shadedArtifactAttached>true</shadedArtifactAttached>-->
-<!--                    <shadedClassifierName>aws</shadedClassifierName>-->
-<!--                    <transformers>-->
-<!--                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
-<!--                            <resource>META-INF/spring.handlers</resource>-->
-<!--                        </transformer>-->
-<!--                        <transformer implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">-->
-<!--                            <resource>META-INF/spring.factories</resource>-->
-<!--                        </transformer>-->
-<!--                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
-<!--                            <resource>META-INF/spring.schemas</resource>-->
-<!--                        </transformer>-->
-<!--                    </transformers>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
 
         </plugins>
     </build>
