@@ -177,6 +177,7 @@
             </plugin>
 
             <!-- Build a Jar for local deployment as a web server. -->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -197,6 +198,7 @@
             </plugin>
 
             <!-- Build a Jar for deployment to AWS. -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -234,15 +236,6 @@
                         </transformer>
 
                     </transformers>
-
-                    <filters>
-                        <filter>
-                            <artifact>org.springframework.cloud:spring-cloud-function-context</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
-                    </filters>
                 </configuration>
 
                 <executions>
