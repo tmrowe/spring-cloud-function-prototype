@@ -87,15 +87,8 @@
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -126,6 +119,7 @@
                     <sourceDirs>
                         <sourceDir>src/main/kotlin</sourceDir>
                     </sourceDirs>
+
                 </configuration>
 
                 <executions>
@@ -176,27 +170,6 @@
 
             </plugin>
 
-            <!-- Build a Jar for local deployment as a web server. -->
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-maven-plugin.version}</version>
-
-                <configuration>
-                    <classifier>web</classifier>
-                    <mainClass>${main.class}</mainClass>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Build a Jar for deployment to AWS. -->
 
             <plugin>
@@ -243,6 +216,27 @@
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Build a Jar for local deployment as a web server. -->
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot-maven-plugin.version}</version>
+
+                <configuration>
+                    <classifier>web</classifier>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
