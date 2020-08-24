@@ -3,4 +3,5 @@
 *.iml
 
 # Build Output
+/full-spring/target/
 /target/

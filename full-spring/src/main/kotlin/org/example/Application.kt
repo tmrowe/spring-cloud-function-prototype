@@ -1,8 +1,8 @@
 package org.example
 
-import org.example.model.UpperCaseInput
-import org.example.model.UppercaseOutput
-import org.example.service.UppercaseService
+import org.example.function.model.UpperCaseInput
+import org.example.function.model.UppercaseOutput
+import org.example.function.service.UppercaseService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
