@@ -20,6 +20,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- TODO: Move this when making this multi-module. -->
+        <!-- Project Specific -->
+        <jar-base-name>full-spring-lambda</jar-base-name>
+        <aws-jar-name>${jar-base-name}-aws</aws-jar-name>
+        <web-jar-name>${jar-base-name}-web</web-jar-name>
+
         <!-- External Dependency Version -->
         <aws-lambda-java-core.version>1.1.0</aws-lambda-java-core.version>
         <aws-lambda-java-events.version>2.0.2</aws-lambda-java-events.version>
@@ -27,6 +33,7 @@
         <spring.version>3.0.9.RELEASE</spring.version>
 
         <!-- Plugin Versions -->
+        <maven-antrun-plugin.version>3.0.0</maven-antrun-plugin.version>
         <maven-assembly-plugin.version>2.4.1</maven-assembly-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <spring-boot-maven-plugin.version>2.3.3.RELEASE</spring-boot-maven-plugin.version>
@@ -101,6 +108,9 @@
     </dependencies>
 
     <build>
+
+        <finalName>${jar-base-name}</finalName>
+
         <plugins>
 
             <!-- Kotlin Compilation -->
@@ -187,8 +197,8 @@
 
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>aws</shadedClassifierName>
+                    <finalName>${jar-base-name}-aws</finalName>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
 
                     <transformers>
 
@@ -229,8 +239,8 @@
                 <version>${spring-boot-maven-plugin.version}</version>
 
                 <configuration>
-                    <classifier>web</classifier>
                     <mainClass>${main.class}</mainClass>
+                    <finalName>${web-jar-name}</finalName>
                 </configuration>
 
                 <executions>
@@ -238,6 +248,28 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Delete the default jar created by Maven we don't need it after packaging the shaded jar. -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <delete file="${project.build.directory}/${jar-base-name}.jar"/>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
