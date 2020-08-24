@@ -46,15 +46,7 @@
 
     <dependencies>
 
-        <!-- Spring -->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-function-kotlin</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <!-- Local Deployment -->
+        <!-- Spring Local Web Deployment -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -63,7 +55,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- AWS Deployment -->
+        <!-- Spring AWS Deployment -->
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
