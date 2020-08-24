@@ -10,6 +10,7 @@
 
     <modules>
         <module>full-spring</module>
+        <module>functional-spring</module>
     </modules>
 
     <name>Spring Cloud Function Prototype</name>
@@ -24,9 +25,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Build Output -->
-        <!-- Values set by the child modules. -->
-        <main.class>placeholder</main.class>
-        <jar-base-name>placeholder</jar-base-name>
+        <main.class>org.example.Application</main.class>
+        <jar-base-name>${project.artifactId}-lambda</jar-base-name>
         <aws-jar-name>${jar-base-name}-aws</aws-jar-name>
         <web-jar-name>${jar-base-name}-web</web-jar-name>
 

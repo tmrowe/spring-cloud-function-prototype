@@ -1,7 +1,4 @@
-# Spring Cloud Function Prototype
-This prototype demonstrates basic usage of Spring Cloud Function.
-
-## Module Specifics
+# Full Spring
 This module demonstrates using Spring Cloud Function out of the box with no significant modification.
 
 ### Limitations
