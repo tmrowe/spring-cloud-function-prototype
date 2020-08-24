@@ -19,7 +19,7 @@
     <properties>
 
         <!-- Build Configuration -->
-
+        <main.class>org.example.functional.Application</main.class>
 
     </properties>
 

@@ -19,8 +19,7 @@
     <properties>
 
         <!-- Build Configuration -->
-        <main.class>org.example.Application</main.class>
-        <jar-base-name>full-spring-lambda</jar-base-name>
+        <main.class>org.example.full.Application</main.class>
 
     </properties>
 
