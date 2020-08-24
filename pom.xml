@@ -19,12 +19,13 @@
 
         <!-- Build Configuration -->
         <kotlin.version>1.4.0</kotlin.version>
-        <main.class>org.example.Application</main.class>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Build Output -->
+        <!-- Values set by the child modules. -->
+        <main.class>placeholder</main.class>
         <jar-base-name>placeholder</jar-base-name>
         <aws-jar-name>${jar-base-name}-aws</aws-jar-name>
         <web-jar-name>${jar-base-name}-web</web-jar-name>
