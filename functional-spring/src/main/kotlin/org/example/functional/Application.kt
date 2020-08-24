@@ -13,6 +13,13 @@ import org.springframework.context.support.registerBean
 class Application : ApplicationContextInitializer<GenericApplicationContext> {
 
     override fun initialize(context: GenericApplicationContext) {
+
+        // TODO: This registers the function but the following error is thrown in AWS:
+        //   {
+        //     "errorMessage": "No qualifying bean of type 'org.springframework.cloud.function.context.FunctionCatalog'
+        //     available",
+        //     "errorType": "org.springframework.beans.factory.NoSuchBeanDefinitionException"
+        //   }
         context.registerBean {
             FunctionRegistration(Uppercase())
                 .type(
