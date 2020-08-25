@@ -1,4 +1,4 @@
-package org.example.full.function
+package org.example.functional.function
 
 import java.util.function.Supplier
 

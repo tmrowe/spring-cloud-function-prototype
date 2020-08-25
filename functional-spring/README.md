@@ -2,7 +2,5 @@
 This module demonstrates using Spring Cloud Function using the functional style.
 
 ### Limitations
-???
-
-### TODO
-- Check that the function catalog is working as expected.
+- We need to register each of our beans manually.
+- Can no longer use Spring framework features like dependency injection, property management, etc.
