@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>spring-cloud-function-prototype</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Client</name>
+    <description>Client for calling the functions deployed either in AWS Lambda or as a web server.</description>
+
+    <properties>
+
+        <!-- External Dependency Versions -->
+        <awssdk.version>2.10.54</awssdk.version>
+        <spring.version>5.2.8.RELEASE</spring.version>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- AWS -->
+
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>lambda</artifactId>
+            <version>${awssdk.version}</version>
+        </dependency>
+
+        <!-- Spring -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
