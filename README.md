@@ -2,10 +2,8 @@
 This prototype demonstrates basic usage of Spring Cloud Function.
 
 ## TODO:
-- Add Tests
-- Add documentation on how to test functions.
-- Describe how this can be packaged for AWS.
-- Can the functions under Application move to another class?
+- Update READMEs. 
+- Add client documentation.
 
 ## Prerequisites
 The following need to be installed on your system to run this project:
