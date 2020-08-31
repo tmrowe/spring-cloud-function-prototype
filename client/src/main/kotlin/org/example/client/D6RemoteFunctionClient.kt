@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.client.WebClient
  * @property webClient An instance of the Spring [WebClient] that will be used to call functions deployed in a web
  * server.
  */
-class D6RemoteClient(
+class D6RemoteFunctionClient(
     private val mapper: ObjectMapper,
     private val webClient: WebClient,
 ) {

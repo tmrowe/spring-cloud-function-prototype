@@ -33,7 +33,7 @@ class ExampleClientUsage {
         .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .build() as ObjectMapper
 
-    private val d6RemoteClient = D6RemoteClient(
+    private val d6RemoteClient = D6RemoteFunctionClient(
         webClient = webClient,
         mapper = mapper
     )
