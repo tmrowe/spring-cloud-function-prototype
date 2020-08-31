@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.example.client.model.SynchronousClientInput.AwsLambdaClientInput
-import org.example.client.model.SynchronousClientInput.HttpClientInput
+import org.example.client.model.SynchronousClientInput.WebServerClientInput
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
@@ -16,7 +16,10 @@ import org.springframework.web.reactive.function.client.WebClient
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials
 import software.amazon.awssdk.regions.Region
 
-class ExampleUsage {
+/**
+ * This file demonstrates using this library.
+ */
+class ExampleClientUsage {
 
     // This is pointing at the full-spring webserver running locally.
     private val webClient = WebClient
@@ -53,7 +56,7 @@ class ExampleUsage {
     fun exampleUppercaseWebCall() {
         val payload = "EXAMPLE lower case INPUT"
         val actualResponse = d6RemoteClient.call(
-            HttpClientInput<String, String>(
+            WebServerClientInput<String, String>(
                 payload = payload,
                 method = HttpMethod.POST,
                 uri = "/uppercase"
@@ -79,7 +82,7 @@ class ExampleUsage {
             value = "EXAMPLE lower case INPUT"
         )
         val actualResponse = d6RemoteClient.call(
-            HttpClientInput<UpperCaseInput, UppercaseOutput>(
+            WebServerClientInput<UpperCaseInput, UppercaseOutput>(
                 payload = payload,
                 method = HttpMethod.POST,
                 uri = "/uppercaseJson"
