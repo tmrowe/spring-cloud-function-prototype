@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.example.client.model.SynchronousClientInput.AwsLambdaClientInput
 import org.example.client.model.SynchronousClientInput.WebServerClientInput
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.springframework.http.HttpHeaders
@@ -33,7 +33,7 @@ class ExampleClientUsage {
         .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .build() as ObjectMapper
 
-    private val d6RemoteClient = D6RemoteFunctionClient(
+    private val remoteFunctionClient = D6RemoteFunctionClient(
         webClient = webClient,
         mapper = mapper
     )
@@ -55,7 +55,7 @@ class ExampleClientUsage {
     @DisplayName("should respond with the input string uppercased")
     fun exampleUppercaseWebCall() {
         val payload = "EXAMPLE lower case INPUT"
-        val actualResponse = d6RemoteClient.call(
+        val actualResponse = remoteFunctionClient.call(
             WebServerClientInput<String, String>(
                 payload = payload,
                 method = HttpMethod.POST,
@@ -81,7 +81,7 @@ class ExampleClientUsage {
         val payload = UpperCaseInput(
             value = "EXAMPLE lower case INPUT"
         )
-        val actualResponse = d6RemoteClient.call(
+        val actualResponse = remoteFunctionClient.call(
             WebServerClientInput<UpperCaseInput, UppercaseOutput>(
                 payload = payload,
                 method = HttpMethod.POST,
@@ -115,7 +115,7 @@ class ExampleClientUsage {
     @DisplayName("should respond with the input string uppercased")
     fun exampleUppercaseAwsLambdaCall() {
         val input = "example lower case input"
-        val actualResponse = d6RemoteClient.call(
+        val actualResponse = remoteFunctionClient.call(
             AwsLambdaClientInput<String, String>(
                 payload = "example lower case input",
                 functionName = "this-is-only-a-test",
@@ -154,7 +154,7 @@ class ExampleClientUsage {
         val payload = UpperCaseInput(
             value = "EXAMPLE lower case INPUT"
         )
-        val actualResponse = d6RemoteClient.call(
+        val actualResponse = remoteFunctionClient.call(
             AwsLambdaClientInput<UpperCaseInput, UppercaseOutput>(
                 payload = payload,
                 functionName = "this-is-only-a-test",

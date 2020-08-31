@@ -26,7 +26,7 @@ class D6RemoteFunctionClient(
     private val webClient: WebClient,
 ) {
 
-    val internalWebClient = D6WebServerClient(
+    val internalWebServerClient = D6WebServerClient(
         webClient = webClient
     )
 
@@ -41,7 +41,7 @@ class D6RemoteFunctionClient(
 
         val response = try {
             when(input) {
-                is WebServerClientInput -> internalWebClient.call(input, ReturnType::class.java)
+                is WebServerClientInput -> internalWebServerClient.call(input, ReturnType::class.java)
                 is AwsLambdaClientInput -> internalAwsLambdaClient.call(input, ReturnType::class.java)
             }
         } catch (exception: Exception) {
