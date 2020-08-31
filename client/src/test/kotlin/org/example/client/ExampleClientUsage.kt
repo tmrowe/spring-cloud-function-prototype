@@ -8,6 +8,7 @@ import org.example.client.model.SynchronousClientInput.WebServerClientInput
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
@@ -47,133 +48,143 @@ class ExampleClientUsage {
         val value: String
     )
 
-    /**
-     * For this to run:
-     * - The full-spring module's web application needs to be running.
-     */
-    @Test
-    @DisplayName("should respond with the input string uppercased")
-    fun exampleUppercaseWebCall() {
-        val payload = "EXAMPLE lower case INPUT"
-        val actualResponse = remoteFunctionClient.call(
-            WebServerClientInput<String, String>(
-                payload = payload,
-                method = HttpMethod.POST,
-                uri = "/uppercase"
-            )
-        )
+    @Nested
+    @DisplayName("Web Server Client")
+    inner class WebServerClient {
 
-        val expectedResponse = payload.toUpperCase()
-        assertEquals(
-            expectedResponse,
-            actualResponse,
-            "The input should be uppercased after calling the uppercase function."
-        )
-    }
-
-    /**
-     * For this to run:
-     * - The full-spring module's web application needs to be running.
-     */
-    @Test
-    @DisplayName("should respond with the input string uppercased")
-    fun exampleUppercaseJsonWebCall() {
-        val payload = UpperCaseInput(
-            value = "EXAMPLE lower case INPUT"
-        )
-        val actualResponse = remoteFunctionClient.call(
-            WebServerClientInput<UpperCaseInput, UppercaseOutput>(
-                payload = payload,
-                method = HttpMethod.POST,
-                uri = "/uppercaseJson"
-            )
-        )
-
-        val expectedResponse = UppercaseOutput(
-            value = payload.value.toUpperCase()
-        )
-        assertEquals(
-            expectedResponse,
-            actualResponse,
-            "The input should be uppercased after calling the uppercase function."
-        )
-    }
-
-    /**
-     * For this to run:
-     * - The full-spring-lambda-aws.jar will need to be deployed into the `this-is-only-a-test` lambda in the POC
-     *   account.
-     * - The SPRING_CLOUD_FUNCTION_DEFINITION environment variable should be set to 'uppercase'.
-     * - You will need to have Deep 6 AI AWS credentials set up on your system under `/Users/<your-user>>/.aws` for the
-     *   `deep6-dev` account.
-     * - You will then need to assume role into the POC account, with a command like:
-     *   `aws sts assume-role --role-arn arn:aws:iam::002400528852:role/Deep6DevAdmin --role-session-name "some-name"`
-     * - Then replace `AccessKeyId`, `SecretAccessKey`, and `SessionToken` with the values returned by the call.
-     * - You should then be able to run this test.
-     */
-    @Test
-    @DisplayName("should respond with the input string uppercased")
-    fun exampleUppercaseAwsLambdaCall() {
-        val input = "example lower case input"
-        val actualResponse = remoteFunctionClient.call(
-            AwsLambdaClientInput<String, String>(
-                payload = "example lower case input",
-                functionName = "this-is-only-a-test",
-                region = Region.US_EAST_1,
-                credentials = AwsSessionCredentials.create(
-                    "AccessKeyId",
-                    "SecretAccessKey",
-                    "SessionToken"
+        /**
+         * For this to run:
+         * - The full-spring module's web application needs to be running.
+         */
+        @Test
+        @DisplayName("should respond with the input string uppercased")
+        fun exampleUppercaseWebCall() {
+            val payload = "EXAMPLE lower case INPUT"
+            val actualResponse = remoteFunctionClient.call(
+                WebServerClientInput<String, String>(
+                    payload = payload,
+                    method = HttpMethod.POST,
+                    uri = "/uppercase"
                 )
             )
-        )
 
-        val expectedResponse = input.toUpperCase()
-        assertEquals(
-            expectedResponse,
-            actualResponse,
-            "The input should be uppercased after calling the uppercase function."
-        )
-    }
+            val expectedResponse = payload.toUpperCase()
+            assertEquals(
+                expectedResponse,
+                actualResponse,
+                "The input should be uppercased after calling the uppercase function."
+            )
+        }
 
-    /**
-     * For this to run:
-     * - The full-spring-lambda-aws.jar will need to be deployed into the `this-is-only-a-test` lambda in the POC
-     *   account.
-     * - The SPRING_CLOUD_FUNCTION_DEFINITION environment variable should be set to 'uppercaseJson'.
-     * - You will need to have Deep 6 AI AWS credentials set up on your system under `/Users/<your-user>>/.aws` for the
-     *   `deep6-dev` account.
-     * - You will then need to assume role into the POC account, with a command like:
-     *   `aws sts assume-role --role-arn arn:aws:iam::002400528852:role/Deep6DevAdmin --role-session-name "some-name"`
-     * - Then replace `AccessKeyId`, `SecretAccessKey`, and `SessionToken` with the values returned by the call.
-     * - You should then be able to run this test.
-     */
-    @Test
-    @DisplayName("should respond with the input string uppercased")
-    fun exampleUppercaseJsonAwsLambdaCall() {
-        val payload = UpperCaseInput(
-            value = "EXAMPLE lower case INPUT"
-        )
-        val actualResponse = remoteFunctionClient.call(
-            AwsLambdaClientInput<UpperCaseInput, UppercaseOutput>(
-                payload = payload,
-                functionName = "this-is-only-a-test",
-                region = Region.US_EAST_1,
-                credentials = AwsSessionCredentials.create(
-                    "AccessKeyId",
-                    "SecretAccessKey",
-                    "SessionToken"
+        /**
+         * For this to run:
+         * - The full-spring module's web application needs to be running.
+         */
+        @Test
+        @DisplayName("should respond with the input string uppercased")
+        fun exampleUppercaseJsonWebCall() {
+            val payload = UpperCaseInput(
+                value = "EXAMPLE lower case INPUT"
+            )
+            val actualResponse = remoteFunctionClient.call(
+                WebServerClientInput<UpperCaseInput, UppercaseOutput>(
+                    payload = payload,
+                    method = HttpMethod.POST,
+                    uri = "/uppercaseJson"
                 )
             )
-        )
 
-        val expectedResponse = UppercaseOutput(
-            value = payload.value.toUpperCase()
-        )
-        assertEquals(
-            expectedResponse,
-            actualResponse,
-            "The input should be uppercased after calling the uppercase function."
-        )
+            val expectedResponse = UppercaseOutput(
+                value = payload.value.toUpperCase()
+            )
+            assertEquals(
+                expectedResponse,
+                actualResponse,
+                "The input should be uppercased after calling the uppercase function."
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("AWS Lambda Client")
+    inner class AwsLambdaClient {
+
+        /**
+         * For this to run:
+         * - The full-spring-lambda-aws.jar will need to be deployed into the `this-is-only-a-test` lambda in the POC
+         *   account.
+         * - The SPRING_CLOUD_FUNCTION_DEFINITION environment variable should be set to 'uppercase'.
+         * - You will need to have Deep 6 AI AWS credentials set up on your system under `/Users/<your-user>>/.aws` for the
+         *   `deep6-dev` account.
+         * - You will then need to assume role into the POC account, with a command like:
+         *   `aws sts assume-role --role-arn arn:aws:iam::002400528852:role/Deep6DevAdmin --role-session-name "some-name"`
+         * - Then replace `AccessKeyId`, `SecretAccessKey`, and `SessionToken` with the values returned by the call.
+         * - You should then be able to run this test.
+         */
+        @Test
+        @DisplayName("should respond with the input string uppercased")
+        fun exampleUppercaseAwsLambdaCall() {
+            val input = "example lower case input"
+            val actualResponse = remoteFunctionClient.call(
+                AwsLambdaClientInput<String, String>(
+                    payload = "example lower case input",
+                    functionName = "this-is-only-a-test",
+                    region = Region.US_EAST_1,
+                    credentials = AwsSessionCredentials.create(
+                        "AccessKeyId",
+                        "SecretAccessKey",
+                        "SessionToken"
+                    )
+                )
+            )
+
+            val expectedResponse = input.toUpperCase()
+            assertEquals(
+                expectedResponse,
+                actualResponse,
+                "The input should be uppercased after calling the uppercase function."
+            )
+        }
+
+        /**
+         * For this to run:
+         * - The full-spring-lambda-aws.jar will need to be deployed into the `this-is-only-a-test` lambda in the POC
+         *   account.
+         * - The SPRING_CLOUD_FUNCTION_DEFINITION environment variable should be set to 'uppercaseJson'.
+         * - You will need to have Deep 6 AI AWS credentials set up on your system under `/Users/<your-user>>/.aws` for the
+         *   `deep6-dev` account.
+         * - You will then need to assume role into the POC account, with a command like:
+         *   `aws sts assume-role --role-arn arn:aws:iam::002400528852:role/Deep6DevAdmin --role-session-name "some-name"`
+         * - Then replace `AccessKeyId`, `SecretAccessKey`, and `SessionToken` with the values returned by the call.
+         * - You should then be able to run this test.
+         */
+        @Test
+        @DisplayName("should respond with the input string uppercased")
+        fun exampleUppercaseJsonAwsLambdaCall() {
+            val payload = UpperCaseInput(
+                value = "EXAMPLE lower case INPUT"
+            )
+            val actualResponse = remoteFunctionClient.call(
+                AwsLambdaClientInput<UpperCaseInput, UppercaseOutput>(
+                    payload = payload,
+                    functionName = "this-is-only-a-test",
+                    region = Region.US_EAST_1,
+                    credentials = AwsSessionCredentials.create(
+                        "AccessKeyId",
+                        "SecretAccessKey",
+                        "SessionToken"
+                    )
+                )
+            )
+
+            val expectedResponse = UppercaseOutput(
+                value = payload.value.toUpperCase()
+            )
+            assertEquals(
+                expectedResponse,
+                actualResponse,
+                "The input should be uppercased after calling the uppercase function."
+            )
+        }
     }
 }
