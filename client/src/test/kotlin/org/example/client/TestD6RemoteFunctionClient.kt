@@ -18,7 +18,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.web.reactive.function.client.WebClient
 
 class TestD6RemoteFunctionClient {
-
+//te
     private val mockWebClient = mock<WebClient>()
     private val mockObjectMapper = mock<ObjectMapper>()
     private val mockWebServerClient = mock<D6WebServerClient>()
