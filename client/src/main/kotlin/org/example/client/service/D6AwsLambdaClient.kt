@@ -64,7 +64,8 @@ class D6AwsLambdaClient(
             throw AwsLambdaException(
                 functionName = input.functionName,
                 region = input.region,
-                payload = input.payload
+                payload = input.payload,
+                cause = exception
             )
         }
     }

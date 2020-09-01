@@ -49,9 +49,10 @@ class D6WebServerClient(
                 .block()!!
         } catch(exception: Exception) {
             throw WebServerException(
-                input.method,
-                input.uri,
-                input.payload
+                method = input.method,
+                uri = input.uri,
+                payload = input.payload,
+                cause = exception
             )
         }
     }

@@ -47,7 +47,9 @@ class D6RemoteFunctionClient(
                 is AwsLambdaClientInput -> internalAwsLambdaClient.call(input, ReturnType::class.java)
             }
         } catch (exception: Exception) {
-            throw RemoteClientException()
+            throw RemoteClientException(
+                cause = exception
+            )
         }
 
         println("Successfully called remote function. Returning response:")
