@@ -48,14 +48,14 @@ class TestD6RemoteFunctionClient {
         private val mockAwsLambdaClientInput = mock<AwsLambdaClientInput<String, String>>()
 
         @Test
-        @DisplayName("should call the WebServerClient when passed a WebServerClientInput")
+        @DisplayName("Should call the WebServerClient when passed a WebServerClientInput")
         fun callsCorrectClient() {
             remoteFunctionClient.call(mockAwsLambdaClientInput)
             verify(mockAwsLambdaClient).call(mockAwsLambdaClientInput, String::class.java)
         }
 
         @Test
-        @DisplayName("should return the value returned by the client")
+        @DisplayName("Should return the value returned by the client")
         fun correctReturn() {
             whenever(mockAwsLambdaClient.call<String, String>(any(), any()))
                 .thenReturn("foo")
@@ -66,7 +66,7 @@ class TestD6RemoteFunctionClient {
         }
 
         @Test
-        @DisplayName("should throw expected exception if the internal client throws")
+        @DisplayName("Should throw expected exception if the internal client throws")
         fun errorHandling() {
             whenever(mockAwsLambdaClient.call<String, String>(any(), any()))
                 .thenThrow(WebServerException::class.java)
@@ -84,14 +84,14 @@ class TestD6RemoteFunctionClient {
         private val mockWebServerClientInput = mock<WebServerClientInput<String, String>>()
 
         @Test
-        @DisplayName("should call the WebServerClient when passed a WebServerClientInput")
+        @DisplayName("Should call the WebServerClient when passed a WebServerClientInput")
         fun callsCorrectClient() {
             remoteFunctionClient.call(mockWebServerClientInput)
             verify(mockWebServerClient).call(mockWebServerClientInput, String::class.java)
         }
 
         @Test
-        @DisplayName("should return the value returned by the client")
+        @DisplayName("Should return the value returned by the client")
         fun correctReturn() {
             whenever(mockWebServerClient.call<String, String>(any(), any()))
                 .thenReturn("foo")
@@ -102,7 +102,7 @@ class TestD6RemoteFunctionClient {
         }
 
         @Test
-        @DisplayName("should throw expected exception if the internal client throws")
+        @DisplayName("Should throw expected exception if the internal client throws")
         fun errorHandling() {
             whenever(mockWebServerClient.call<String, String>(any(), any()))
                 .thenThrow(AwsLambdaException::class.java)
