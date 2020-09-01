@@ -5,6 +5,7 @@ import org.example.client.exception.D6RemoteClientException.RemoteClientExceptio
 import org.example.client.model.SynchronousClientInput
 import org.example.client.model.SynchronousClientInput.AwsLambdaClientInput
 import org.example.client.model.SynchronousClientInput.WebServerClientInput
+import org.example.client.service.AwsLambdaClientFactory
 import org.example.client.service.D6AwsLambdaClient
 import org.example.client.service.D6WebServerClient
 import org.springframework.web.reactive.function.client.WebClient
@@ -31,7 +32,8 @@ class D6RemoteFunctionClient(
     )
 
     val internalAwsLambdaClient = D6AwsLambdaClient(
-        mapper = mapper
+        awsLambdaClientFactory = AwsLambdaClientFactory(),
+        objectMapper = mapper
     )
 
     inline fun <reified InputType, reified ReturnType> call(

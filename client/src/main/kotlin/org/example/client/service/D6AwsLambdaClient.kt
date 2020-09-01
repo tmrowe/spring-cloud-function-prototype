@@ -3,20 +3,20 @@ package org.example.client.service
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.example.client.exception.D6RemoteClientException.AwsLambdaException
 import org.example.client.model.SynchronousClientInput.AwsLambdaClientInput
-import software.amazon.awssdk.auth.credentials.AwsCredentials
 import software.amazon.awssdk.core.SdkBytes
-import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.lambda.LambdaClient
 import software.amazon.awssdk.services.lambda.model.InvokeRequest
 
 /**
  * Internal library client that constructs an AWS Client and calls one of our functions deployed in an AWS lambda.
  *
- * @property mapper An instance of Jackson [ObjectMapper] passed in by the caller for serializing the user input to
- * the structure required by AWS, and the response to the given ReturnType.
+ * @property awsLambdaClientFactory A factory capable of constructing instances of [LambdaClient].
+ * @property objectMapper An instance of Jackson [ObjectMapper] passed in by the caller for serializing the user input
+ * to the structure required by AWS, and the response to the given ReturnType.
  */
 class D6AwsLambdaClient(
-    private val mapper: ObjectMapper
+    private val awsLambdaClientFactory: AwsLambdaClientFactory,
+    private val objectMapper: ObjectMapper
 ) {
 
     /**
@@ -41,23 +41,25 @@ class D6AwsLambdaClient(
         """.trimIndent())
 
         return try {
-            val response = buildAwsClient(
+            val awsClient = awsLambdaClientFactory.build(
                 region = input.region,
                 credentials = input.credentials
-            ).invoke(
+            )
+
+            val response = awsClient.invoke(
                 InvokeRequest
                     .builder()
                     .functionName(input.functionName)
                     .apply {
                         input.payload ?.let { payload ->
-                            val awsPayload = SdkBytes.fromUtf8String(mapper.writeValueAsString(payload))
+                            val awsPayload = SdkBytes.fromUtf8String(objectMapper.writeValueAsString(payload))
                             payload(awsPayload)
                         }
                     }
                     .build()
             )
 
-            mapper.readValue(response.payload().asUtf8String(), returnType)
+            objectMapper.readValue(response.payload().asUtf8String(), returnType)
         } catch(exception: Exception) {
             throw AwsLambdaException(
                 functionName = input.functionName,
@@ -65,24 +67,5 @@ class D6AwsLambdaClient(
                 payload = input.payload
             )
         }
-    }
-
-    /**
-     * Build a single AWS [LambdaClient] with the pointing at the given [region] and using the given [credentials].
-     *
-     * @param region The AWS region the target lambda is deployed in.
-     * @param credentials The [AwsCredentials] that will be used to invoke the lambda.
-     * @return An AWS [LambdaClient] constructed with the given [region] and using the given [credentials].
-     */
-    private fun buildAwsClient(
-        region: Region,
-        credentials: AwsCredentials
-    ): LambdaClient {
-        return LambdaClient.builder()
-            .region(region)
-            .credentialsProvider {
-                credentials
-            }
-            .build()
     }
 }

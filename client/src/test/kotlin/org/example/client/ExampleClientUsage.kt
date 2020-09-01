@@ -29,14 +29,14 @@ class ExampleClientUsage {
         .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .build()
 
-    private val mapper = Jackson2ObjectMapperBuilder()
+    private val objectMapper = Jackson2ObjectMapperBuilder()
         .modules(KotlinModule())
         .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .build() as ObjectMapper
 
     private val remoteFunctionClient = D6RemoteFunctionClient(
         webClient = webClient,
-        mapper = mapper
+        mapper = objectMapper
     )
 
     // Normally we would share these data classes via a library but they are duplicated here for demonstration purposes.
